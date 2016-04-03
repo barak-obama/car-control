@@ -1,7 +1,7 @@
-function [ d ] = getDistance( angle, car, obstacles, map, cars )
+function [ d ] = getDistance( car,angle, map, obstacles, cars, back )
     collisions = [];
-    angle = pi - (angle + car.angleNorth);
-    car_pos = [car.locationX, car.locationY];
+    angle = pi/2 - (angle + car.angle);
+    car_pos = ([cos(car.angle), sin(car.angle); -sin(car.angle), cos(car.angle)] * [car.length; 0] + [car.x; car.y])';
     for i=1:length(obstacles)
         [d, isCollided] = collide(obstacles{i}, car_pos, angle);
         if isCollided

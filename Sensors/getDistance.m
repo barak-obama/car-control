@@ -1,12 +1,10 @@
 function [ d ] = getDistance( car,angle, map, obstacles, cars, back )
     collisions = [];
-<<<<<<< HEAD:getDistance.m
     angle = pi/2 - (angle + car.angle);
-    car_pos = ([cos(car.angle), sin(car.angle); -sin(car.angle), cos(car.angle)] * [car.length; 0] + [car.x; car.y])';
-=======
+    M = [cos(car.angle), sin(car.angle); -sin(car.angle), cos(car.angle)];
+    car_center = [car.x; car.y];
+    car_pos = ( M * [car.length; 0] + car_center)';
     angle = 2*pi - (angle + car.angle);
-    car_pos = [car.x, car.y];
->>>>>>> 06f472c5b6da8363ffc7e767f1a06c36f6e5a668:Sensors/getDistance.m
     for i=1:length(obstacles)
         [d, isCollided] = collide(obstacles{1,i}, car_pos, angle);
         if isCollided

@@ -10,7 +10,8 @@ while ~inMapNotInCars(map, cars, x, y)
     x = rand*mapMaxX+mapMinX;
     y = rand*mapMaxY+mapMinY;
 end
-str  = struct('x',x,'y',y,'length',carLength,'width',carWidth,'angle',rand*2*pi);
+str  = struct('x',x,'y',y,'length',carLength,'width',carWidth,'angle',...
+    rand*2*pi, 'id', sum(1-cellfun(@isempty,cars))+1);
 cars{1,end} = str;
 x = rand*mapMaxX+mapMinX;
 y = rand*mapMaxY+mapMinY;

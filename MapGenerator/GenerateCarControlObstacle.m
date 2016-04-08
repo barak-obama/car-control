@@ -43,4 +43,6 @@ end
 if envelops(cars,str)
    str = GenerateCarControlObstacle(obstacles,map,cars); 
 end
+
+str.matrix = [str.x, str.y];
 end

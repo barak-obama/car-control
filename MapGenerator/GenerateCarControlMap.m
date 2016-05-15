@@ -20,4 +20,7 @@ end
 str.map = map;
 str.cars = cars;
 str.obstacles = obstacles;
+for i=1:max(size(str.cars))
+   [~, str.cars{i}.sensorData, str.cars{i}.points] = SensorData(str.cars{i}, str);
+end
 end

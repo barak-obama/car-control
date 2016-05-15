@@ -21,4 +21,6 @@ while ~inMapNotInCars(map, cars, x, y)
 end
 str.fx = x;
 str.fy = y;
+str.v = 0;
+str.a = 0;
 end

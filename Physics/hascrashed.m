@@ -1,5 +1,4 @@
 function [ b ] = hascrashed( str, car )
-addpath('../sensors');
 cars = 1:max(size(str.cars));
 cars(car.id) = [];
 b = 0;

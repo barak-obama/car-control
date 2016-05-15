@@ -1,5 +1,4 @@
 function displayCarControlMap( str, withsensors )
-figure;
 hold on;
 axis equal;
 plot(str.map(:,1),str.map(:,2));
@@ -32,4 +31,5 @@ for i=1:length(str.obstacles)
         fill(str.obstacles{1,i}.x,str.obstacles{1,i}.y,'r');
     end
 end
+hold off;
 end

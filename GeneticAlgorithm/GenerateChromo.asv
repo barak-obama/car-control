@@ -1,9 +1,0 @@
-function [ cl, ind ] = GenerateChromo( numInputs, numOutputs, netSize )
-ind = 0;
-netSize = [numInputs;netSize;numOutputs];
-for i=2:length(netSize)
-    ind = [ind;(1:netSize(i)).*netSize(i-1)+ind(end)];
-end
-ind(end+1) = cl;
-end
-

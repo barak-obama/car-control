@@ -1,0 +1,30 @@
+global dt
+dt = 0.1;
+DefaultMap;
+<<<<<<< HEAD
+netSize = [10, 20];
+numStepsSim = 300;
+numGenerations = 100;
+chromoNum = 10;
+elitePerc = 0.3;
+crossPerc = 0.7;
+=======
+pause;
+netSize = [10,10];
+numStepsSim = 300;
+numGenerations = 20;
+chromoNum = 25;
+elitePerc = 0.6;
+crossPerc = 0.1;
+>>>>>>> 7ff078a6a7d1c3622fd25bb555b06ffcf73523fd
+mutPerc = 0.01;
+inL = length(getreality(str.cars{1}));
+[chromoLength, chromoIndex] = GenerateChromo(inL,2,netSize);
+bestChromo = NeuralNetWeights(str,chromoLength,chromoIndex,netSize,...
+    numStepsSim,chromoNum,numGenerations,elitePerc,crossPerc,mutPerc);
+net = fitnet(netSize);
+net = configure(net,[(1:inL)', (inL:-1:1)',(1:2:(inL*2))'],[(1:2)',(2:-1:1)', [1;1]]);
+net = netFromChromo(bestChromo,chromoIndex,net);
+display('Ready! press enter to play simulation');
+pause;
+ShowDriving(str,net,numStepsSim*2);

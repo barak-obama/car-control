@@ -5,12 +5,13 @@ pop = rand(chromoLength,chromoNum);
 nets = cell(1,chromoNum);
 for i=1:chromoNum
     nets{i} = fitnet(netsize);
-    nets{i} = configure(nets{i},(1:21)',(1:2)');
+    nets{i} = configure(nets{i},[(1:21)', (21:-1:1)',(1:0.5:11)'],[(1:2)',(2:-1:1)', [1;1]]);
 end
 fAlg = @(a) fitnessalg(a, str, chromoIndex, numStepsSim, nets);
 cAlg = @(a, b) crossoveralg(a, b, chromoIndex);
 mAlg = @(a, j) mutationalg(a, j);
 for i=1:numGenerations
+    i
     pop = GenAlg(pop,fAlg,cAlg,mAlg,elitePercentage,mutationPercentage,crossoverPercentage);
 end
 fit = fitnessalg(pop);
@@ -33,30 +34,24 @@ for i=1:length(layers)
    lay(i) = layers{i}.size;
 end
 layers = lay;
-view(net);
-pause;
-net.IW{1,1} = [];
-for i=2:length(net.LW)
-   net.LW{i,i-1} = [];
-end
-for i=1:length(net.b)
-   net.b{i} = []; 
-end
 %putting new values
+IW = [];
 for i=1:layers(1)
-    net.IW{1,1} = [net.IW{1,1};a(ind(i):ind(i+1))];
+    IW = [IW,a(ind(i)+1:ind(i+1))];
 end
+net.IW{1,1} = IW';
 count = 0;
-for i=1:length(layers)
+for i=2:length(layers)
+    LW = [];
     for j=1:layers(i)
-        net.LW{i+1,i} = [net.LW{i+1,i},a(ind(layers(1)+j+count):ind(layers(1)+1+j+count))];
+        LW = [LW,a(ind(layers(1)+j+count)+1:ind(layers(1)+j+1+count))];
     end
+    net.LW{i,i-1} = LW';
     count = count + layers(i);
-    net.b{i} = a(ind(layers(1)+sum(layers)+i):ind(ind(layers(1)+sum(layers)+i+1)));
+    net.b{i-1} = a(ind(sum(layers)+i-2)+1:ind(sum(layers)+i-1));
 end
-net.b{end} = a(ind(end-1):end);
-view(net);
-pause;
+net.b{end-1} = a(ind(end-2)+1:ind(end-1));
+net.b{end} = a(ind(end-1)+1:end);
 for i=1:numc
     for j=1:length(canContinue)
         [str, canContinue(j)] = updatereality(str,str.cars{j},net(getreality(str.cars{j})));

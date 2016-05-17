@@ -3,15 +3,15 @@ function [ best ] = NeuralNetWeights( str, chromoLength, chromoIndex, ...
     crossoverPercentage, mutationPercentage )
 pop = rand(chromoLength,chromoNum);
 nets = cell(1,chromoNum);
-for i=1:chromoNum
-    nets{i} = fitnet(netsize);
-    nets{i} = configure(nets{i},[(1:21)', (21:-1:1)',(1:0.5:11)'],[(1:2)',(2:-1:1)', [1;1]]);
+for Generation=1:chromoNum
+    nets{Generation} = fitnet(netsize);
+    nets{Generation} = configure(nets{Generation},[(1:21)', (21:-1:1)',(1:0.5:11)'],[(1:2)',(2:-1:1)', [1;1]]);
 end
 fAlg = @(a) fitnessalg(a, str, chromoIndex, numStepsSim, nets);
 cAlg = @(a, b) crossoveralg(a, b, chromoIndex);
 mAlg = @(a, j) mutationalg(a, j);
-for i=1:numGenerations
-    i
+for Generation=1:numGenerations
+    Generation
     pop = GenAlg(pop,fAlg,cAlg,mAlg,elitePercentage,mutationPercentage,crossoverPercentage);
 end
 fit = fitnessalg(pop, str, chromoIndex, numStepsSim, nets);
@@ -21,8 +21,9 @@ end
 
 function [ fit ] = fitnessalg( a, str, ind, numc, nets )
 fit = zeros(1,size(a, 2));
-for i = 1:length(fit)
-    fit(i) = fitness(a(:,i), str, ind, numc, nets{i});
+for chromoFit = 1:length(fit)
+    chromoFit
+    fit(chromoFit) = fitness(a(:,chromoFit), str, ind, numc, nets{chromoFit});
 end
 end
 

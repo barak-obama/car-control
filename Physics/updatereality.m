@@ -16,17 +16,31 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
             b = back + abs(r) * [0 1; -1 0] * b;
         end
 
-        theta = -car.v * dt / r;
+        theta = car.v * dt / r;
 
         new_end = rotateBy(back, theta, b);
 
+        p_angle = car.angle;
         car.angle = 0;
-        if b(1) ~= new_end(1)
-            car.angle = pi / 2 - atan((b(2) - new_end(2)) / (b(1) - new_end(1)));
+        
+        if b(2) ~= new_end(2)
+            car.angle = pi / 2 - atan((new_end(1) - b(1)) / (b(2) - new_end(2)));
+            if abs(p_angle - car.angle) > abs(p_angle - pi - car.angle)
+                car.angle = pi + car.angle;
+            end
         end
 
         car.x = (car.length / 2) * cos(pi/2 - car.angle) + new_end(1);
-        car.y = (car.length / 2) * sin(pi/2 - car.angle) + new_end(2); 
+        car.y = (car.length / 2) * sin(pi/2 - car.angle) + new_end(2);
+        
+        rr = 0:0.1:2*pi;
+        x = b(1) + r * cos(rr);
+        y = b(2) + r * sin(rr);
+        hold on;
+        plot(x,y);
+        hold on;
+        plot(b(1), b(2), 'o');
+        hold on;
     else
         car.x = car.x + car.v * cos(pi/2 - car.angle);
         car.y = car.y + car.v * sin(pi/2 - car.angle);
@@ -35,4 +49,5 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
     [~, car.sensorData, car.points] = SensorData(car, str);
     str.cars{car.id} = car;
     canContinue = 1-hascrashed(str,car);
+    
 end 

@@ -3,6 +3,7 @@ function [ collision , point] = getDistance( angle, car, str, dot)
     point = dot;
     angle = pi / 2 - (car.angle + angle);
     l = sqrt(2)*max(max(str.map)-min(str.map));
+    point = dot;
     for i=1:length(str.obstacles)
         [d, p] = collide(str.obstacles{i}.matrix, dot, angle, l);
         if d < collision

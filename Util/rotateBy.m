@@ -6,7 +6,7 @@ function [ p ] = rotateBy( point, angle, varargin )
     end
     
     rotation_matrix = [cos(angle) sin(angle); -sin(angle) cos(angle)];
-    p = (point - fixed_point) * rotation_matrix + fixed_point;
+    p = rotation_matrix * (point - fixed_point)  + fixed_point;
 %ROTATE Summary of this function goes here
 %   Detailed explanation goes here
 

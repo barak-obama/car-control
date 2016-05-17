@@ -35,5 +35,4 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
     [~, car.sensorData, car.points] = SensorData(car, str);
     str.cars{car.id} = car;
     canContinue = 1-hascrashed(str,car);
-
 end 

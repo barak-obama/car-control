@@ -30,7 +30,7 @@ end
 
 function [distance, point] = collide(obstacle, dot, angle, max_distance)
     X = seg2poly([dot, dot + max_distance*[cos(angle);sin(angle)]], obstacle');
-    D = sum(sqrt((X - diag(dot)*ones(size(X))).^2));
+    D = sum(sqrt(X - diag(dot)*ones(size(X)).^2));
     [distance, k] = min(D);
     point = X(:, k);
 end

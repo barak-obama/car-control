@@ -21,12 +21,12 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
         new_end = rotateBy(back, theta, b);
 
         car.angle = 0;
-        if b(1) ~= new_end(0)
+        if b(1) ~= new_end(1)
             car.angle = pi / 2 - atan((b(2) - new_end(2)) / (b(1) - new_end(1)));
         end
 
-        car.x = (car.length / 2) * cos(pi/2 - car.angle) + new_end(0);
-        car.y = (car.length / 2) * sin(pi/2 - car.angle) + new_end(1); 
+        car.x = (car.length / 2) * cos(pi/2 - car.angle) + new_end(1);
+        car.y = (car.length / 2) * sin(pi/2 - car.angle) + new_end(2); 
     else
         car.x = car.x + car.v * cos(pi/2 - car.angle);
         car.y = car.y + car.v * sin(pi/2 - car.angle);

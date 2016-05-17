@@ -5,6 +5,7 @@ sorted = population(:,b);
 %for i = 1:length(b)
 %    sorted = [sorted,population(:,b(i))];
 %end
+display(a(1));
 ret = struct('p',sorted,'f',a);
 end
 

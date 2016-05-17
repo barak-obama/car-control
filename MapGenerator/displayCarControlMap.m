@@ -1,7 +1,8 @@
 function displayCarControlMap( str, withsensors )
-hold on;
+axis square
 axis equal;
 plot(str.map(:,1),str.map(:,2));
+hold on;
 for i=1:length(str.cars)
     if ~isempty(str.cars{i})
         xy = polygonFromCar(str.cars{i}, 0);

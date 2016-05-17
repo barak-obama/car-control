@@ -1,15 +1,42 @@
-function [ str, canContinue ] = updatereality( str, car, nt )
-%net
-if ~isempty(nt)
-    str.cars{car.id}.a = ...%str.cars{car.id}.a + 
-        (nt(1)-0.5);
-    str.cars{car.id}.angle = str.cars{car.id}.angle + (nt(2)-0.5);
-    %physics
-    str.cars{car.id}.v = str.cars{car.id}.v + str.cars{car.id}.a;
-    str.cars{car.id}.x = str.cars{car.id}.x + cos(str.cars{car.id}.angle)*str.cars{car.id}.v;
-    str.cars{car.id}.y = str.cars{car.id}.y + sin(str.cars{car.id}.angle)*str.cars{car.id}.v;
-    %sensors
-    [~, str.cars{car.id}.sensorData, str.cars{car.id}.points] = SensorData(str.cars{car.id}, str);
-end
-canContinue = 1-hascrashed(str,car);
+
+function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max_wheel_angle  )
+
+    car.a = a;
+    car.v = a * dt + car.v;
+    wheel_angle = wheel_angle * max_wheel_angle;
+    
+    if wheel_angle ~= 0
+        r = car.length / tan(wheel_angle);
+        back = [car.x; car.y] - (car.length / 2 )* [cos(pi / 2 - car.angle); sin(pi/2 - car.angle)];
+        front = [car.x; car.y] + (car.length / 2 )* [cos(pi / 2 - car.angle); sin(pi/2 - car.angle)];
+        b = front - back;
+        b = b / norm(b);
+
+        if r < 0
+            b = back + abs(r) * [0 -1; 1 0] * b;
+
+        else
+            b = back + abs(r) * [0 1; -1 0] * b;
+        end
+
+        theta = -car.v * dt / r;
+
+        new_end = rotateBy(back, theta, b);
+
+        car.angle = 0;
+        if b(1) ~= new_end(0)
+            car.angle = pi / 2 - atan((b(2) - new_end(2)) / (b(1) - new_end(1)));
+        end
+
+        car.x = (car.length / 2) * cos(pi/2 - car.angle) + new_end(0);
+        car.y = (car.length / 2) * sin(pi/2 - car.angle) + new_end(1); 
+    else
+        car.x = car.x + car.v * cos(pi/2 - car.angle);
+        car.y = car.y + car.v * sin(pi/2 - car.angle);
+    end
+    
+    [~, car.sensorData, car.points] = SensorData(car, str);
+    str.cars{car.id} = car;
+    canContinue = 1-hascrashed(str,car);
+
 end

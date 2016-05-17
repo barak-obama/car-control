@@ -16,12 +16,12 @@ bestChromos.f = [];
 for Generation=1:numGenerations
     Generation
     [pop, fitnessStr] = GenAlg(pop,fAlg,cAlg,mAlg,elitePercentage,mutationPercentage,crossoverPercentage);
-    bestChromos.p(end+1) = fitnessStr.p(1);
+    bestChromos.p(:,size(bestChromos.p,2)+1) = fitnessStr.p(:,1);
     bestChromos.f(end+1) = fitnessStr.f(1);
     cont = 0;
     if length(bestChromos.f) > 3
        bestChromos.f(1) = []; 
-       bestChromos.p(1) = [];
+       bestChromos.p(:,1) = [];
     elseif length(bestChromos.f) < 3
         cont = 1;
     end
@@ -39,7 +39,7 @@ fit = fitnessalg(pop, str, chromoIndex, numStepsSim, nets);
 [~, chromoIndex] = max(fit);
 best = pop(:, chromoIndex);
 if ~cont && fit(chromoIndex)<bestChromos.f(1)
-   best = bestChromos(1);
+   best = bestChromos.p(:,1);
 end
 end
 

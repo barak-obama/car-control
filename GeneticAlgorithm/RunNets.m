@@ -9,6 +9,7 @@ chromoNum = 25;
 elitePerc = 0.6;
 crossPerc = 0.1;
 mutPerc = 0.01;
+pause;
 inL = length(getreality(str.cars{1}));
 [chromoLength, chromoIndex] = GenerateChromo(inL,2,netSize);
 bestChromo = NeuralNetWeights(str,chromoLength,chromoIndex,netSize,...

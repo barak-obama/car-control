@@ -1,5 +1,6 @@
 function [ collision , point] = getDistance( angle, car, str, dot)
     collision = inf;
+    point = dot;
     angle = pi / 2 - (car.angle + angle);
     l = sqrt(2)*max(max(str.map)-min(str.map));
     point = dot;

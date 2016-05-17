@@ -1,6 +1,7 @@
 function [ collision , point] = getDistance( angle, car, str, dot)
-    collision = inf;
+    collision = sum(max(str.map).^2)^0.5;
     angle = pi / 2 - (car.angle + angle);
+    point = dot;
     l = sqrt(2)*max(max(str.map)-min(str.map));
     for i=1:length(str.obstacles)
         [d, p] = collide(str.obstacles{i}.matrix, dot, angle, l);
@@ -30,7 +31,7 @@ end
 
 function [distance, point] = collide(obstacle, dot, angle, max_distance)
     X = seg2poly([dot, dot + max_distance*[cos(angle);sin(angle)]], obstacle');
-    D = sum(sqrt(X - diag(dot)*ones(size(X)).^2));
+    D = sum(sqrt(abs(X - diag(dot)*ones(size(X)).^2)));
     [distance, k] = min(D);
     point = X(:, k);
 end

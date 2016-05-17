@@ -20,7 +20,7 @@ best = pop(:, chromoIndex);
 end
 
 function [ fit ] = fitnessalg( a, str, ind, numc, nets )
-fit = zeros(size(a, 2));
+fit = zeros(1,size(a, 2));
 for i = 1:length(fit)
     fit(i) = fitness(a(:,i), str, ind, numc, nets{i});
 end
@@ -66,12 +66,12 @@ end
 function [ c ] = crossoveralg( a, b, ind )
 cross = randi(length(ind)-2)+1;
 if rand<0.5
-    c = [a(1:ind(cross));b(ind(cross):end)];
+    c = [a(1:ind(cross));b(ind(cross)+1:end)];
 else
-    c = [b(1:ind(cross));a(ind(cross):end)];
+    c = [b(1:ind(cross));a(ind(cross)+1:end)];
 end
 end
 
 function [ a ] = mutationalg( a, j )
-a(j) = rand;
+a = rand;
 end

@@ -22,11 +22,11 @@ for Generation=1:numGenerations
     if length(bestChromos.f) > 3
        bestChromos.f(1) = []; 
        bestChromos.p(1) = [];
-    else
+    elseif length(bestChromos.f) < 3
         cont = 1;
     end
     for i=2:length(bestChromos.f)
-        if bestChromos.f(i-1) < bestChromos.f(i)
+        if bestChromos.f(1) < bestChromos.f(i)
            cont = 1;
            break;
         end
@@ -38,6 +38,9 @@ end
 fit = fitnessalg(pop, str, chromoIndex, numStepsSim, nets);
 [~, chromoIndex] = max(fit);
 best = pop(:, chromoIndex);
+if ~cont && fit(chromoIndex)<bestChromos.f(1)
+   best = bestChromos(1);
+end
 end
 
 function [ fit ] = fitnessalg( a, str, ind, numc, nets )
@@ -54,8 +57,10 @@ net = netFromChromo(a,ind,net);
 global dt
 for i=1:numc
     for j=1:length(canContinue)
-        netans = net(getreality(str.cars{j}));
-        [str, canContinue(j)] = updatereality(str,str.cars{j},netans(1),netans(2),dt,pi);
+        if canContinue(j)
+            netans = net(getreality(str.cars{j}));
+            [str, canContinue(j)] = updatereality(str,str.cars{j},netans(1),netans(2),dt,pi);
+        end
     end
 end
 for i=1:length(canContinue)

@@ -14,13 +14,13 @@ for i=1:numGenerations
     i
     pop = GenAlg(pop,fAlg,cAlg,mAlg,elitePercentage,mutationPercentage,crossoverPercentage);
 end
-fit = fitnessalg(pop);
+fit = fitnessalg(pop, str, chromoIndex, numStepsSim, nets);
 [~, chromoIndex] = max(fit);
 best = pop(:, chromoIndex);
 end
 
 function [ fit ] = fitnessalg( a, str, ind, numc, nets )
-fit = zeros(size(a, 2));
+fit = zeros(1,size(a, 2));
 for i = 1:length(fit)
     fit(i) = fitness(a(:,i), str, ind, numc, nets{i});
 end
@@ -54,7 +54,8 @@ net.b{end-1} = a(ind(end-2)+1:ind(end-1));
 net.b{end} = a(ind(end-1)+1:end);
 for i=1:numc
     for j=1:length(canContinue)
-        [str, canContinue(j)] = updatereality(str,str.cars{j},net(getreality(str.cars{j})));
+        netans = net(getreality(str.cars{j}));
+        [str, canContinue(j)] = updatereality(str,str.cars{j},netans(1),netans(2),0.1,pi);
     end
 end
 for i=1:length(canContinue)
@@ -66,12 +67,12 @@ end
 function [ c ] = crossoveralg( a, b, ind )
 cross = randi(length(ind)-2)+1;
 if rand<0.5
-    c = [a(1:ind(cross));b(ind(cross):end)];
+    c = [a(1:ind(cross));b(ind(cross)+1:end)];
 else
-    c = [b(1:ind(cross));a(ind(cross):end)];
+    c = [b(1:ind(cross));a(ind(cross)+1:end)];
 end
 end
 
 function [ a ] = mutationalg( a, j )
-a(j) = rand;
+a = rand;
 end

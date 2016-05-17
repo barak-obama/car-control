@@ -1,14 +1,13 @@
 global dt
 dt = 0.1;
 DefaultMap;
-netSize = [10];
-numStepsSim = 50;
-numGenerations = 50;
+netSize = [10, 20];
+numStepsSim = 300;
+numGenerations = 100;
 chromoNum = 10;
 elitePerc = 0.3;
 crossPerc = 0.7;
 mutPerc = 0.01;
-pause;
 inL = length(getreality(str.cars{1}));
 [chromoLength, chromoIndex] = GenerateChromo(inL,2,netSize);
 bestChromo = NeuralNetWeights(str,chromoLength,chromoIndex,netSize,...

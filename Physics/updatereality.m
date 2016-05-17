@@ -33,14 +33,7 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
         car.x = (car.length / 2) * cos(pi/2 - car.angle) + new_end(1);
         car.y = (car.length / 2) * sin(pi/2 - car.angle) + new_end(2);
         
-        rr = 0:0.1:2*pi;
-        x = b(1) + r * cos(rr);
-        y = b(2) + r * sin(rr);
-        hold on;
-        plot(x,y);
-        hold on;
-        plot(b(1), b(2), 'o');
-        hold on;
+        
     else
         car.x = car.x + car.v * cos(pi/2 - car.angle);
         car.y = car.y + car.v * sin(pi/2 - car.angle);

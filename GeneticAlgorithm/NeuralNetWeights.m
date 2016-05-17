@@ -22,7 +22,6 @@ end
 function [ fit ] = fitnessalg( a, str, ind, numc, nets )
 fit = zeros(1,size(a, 2));
 for chromoFit = 1:length(fit)
-    chromoFit
     fit(chromoFit) = fitness(a(:,chromoFit), str, ind, numc, nets{chromoFit});
 end
 end

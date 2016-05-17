@@ -14,7 +14,7 @@ for i=1:numGenerations
     i
     pop = GenAlg(pop,fAlg,cAlg,mAlg,elitePercentage,mutationPercentage,crossoverPercentage);
 end
-fit = fitnessalg(pop);
+fit = fitnessalg(pop, str, chromoIndex, numStepsSim, nets);
 [~, chromoIndex] = max(fit);
 best = pop(:, chromoIndex);
 end
@@ -54,7 +54,8 @@ net.b{end-1} = a(ind(end-2)+1:ind(end-1));
 net.b{end} = a(ind(end-1)+1:end);
 for i=1:numc
     for j=1:length(canContinue)
-        [str, canContinue(j)] = updatereality(str,str.cars{j},net(getreality(str.cars{j})));
+        netans = net(getreality(str.cars{j}));
+        [str, canContinue(j)] = updatereality(str,str.cars{j},netans(1),netans(2),0.1,pi);
     end
 end
 for i=1:length(canContinue)

@@ -7,9 +7,14 @@ X = [X,getreality(sss.cars{1})'];
 T = [T,[y;x]];
 [sss, canContinue] = updatereality(sss, sss.cars{1}, y, x, 0.1, pi);
 clf
-displayCarControlMap(sss, 1);
+displayCarControlMap(sss, 0);
 if d || ~canContinue 
     fclose(obj);
+    if hascrashed(sss,sss.cars{1})
+        global prevSize
+        X = X(:,1:prevSize);
+        T = T(:,1:prevSize);
+    end
 end
 pause(0.01);
 end

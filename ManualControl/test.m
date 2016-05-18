@@ -1,7 +1,7 @@
 close all
 %DefaultMap
+global sss prevSize
 prevSize = length(T);
-global sss
 sss = str;
 clear ppp;
 s = serial('COM5');

@@ -10,7 +10,7 @@ clf
 displayCarControlMap(sss, 0);
 if d || ~canContinue 
     fclose(obj);
-    if hascrashed(sss,sss.cars{1})
+    if hascrashed(sss,sss.cars{1})||d
         global prevSize
         X = X(:,1:prevSize);
         T = T(:,1:prevSize);

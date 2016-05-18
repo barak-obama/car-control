@@ -15,6 +15,6 @@ for i=1:maxNum
     if ~canContinue
         break;
     end
-    pause(dt);
+    pause(dt/5);
 end
 end

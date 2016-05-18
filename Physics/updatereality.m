@@ -20,6 +20,7 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
         car.angle = 0;
         if b(2) ~= new_end(2)
             car.angle = pi / 2 - atan((new_end(1) - b(1)) / (b(2) - new_end(2)));
+            car.angle = car.angle/abs(car.angle)*mod(car.angle,2*pi);
             if abs(p_angle - car.angle) > abs(p_angle - pi - car.angle)
                 car.angle = pi + car.angle;
             elseif abs(p_angle - car.angle) > abs(p_angle + pi - car.angle)

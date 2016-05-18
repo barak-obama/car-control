@@ -13,11 +13,18 @@ mAlg = @(a, j) mutationalg(a, j);
 %bestChromos = struct;
 %bestChromos.p = [];
 %bestChromos.f = [];
+ever = struct;
+ever.f = 0;
+ever.p = [];
 for Generation=1:numGenerations
     Generation
     [pop, fitnessStr] = GenAlg(pop,fAlg,cAlg,mAlg,elitePercentage,mutationPercentage,crossoverPercentage);
     %bestChromos.p(:,size(bestChromos.p,2)+1) = fitnessStr.p(:,1);
     %bestChromos.f(end+1) = fitnessStr.f(1);
+    if ever.f<fitnessStr.f(1)
+       ever.f = fitnessStr(1);
+       ever.p = fitnessStr(:,1);
+    end
     cont = 1;
     if fitnessStr.f(1)>150
        cont = 0; 
@@ -43,6 +50,8 @@ fit = fitnessalg(pop, str, chromoIndex, numStepsSim, nets);
 best = pop(:, chromoIndex);
 if ~cont && fit(chromoIndex)<fitnessStr.f(1)
    best = fitnessStr.p(:,1);
+elseif fit(chromoIndex)<ever.f
+    best = ever.p;
 end
 %if ~cont && fit(chromoIndex)<bestChromos.f(1)
 %   best = bestChromos.p(:,1);

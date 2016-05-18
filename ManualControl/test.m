@@ -1,17 +1,11 @@
 close all
-DefaultMap
-
-s = serial('/dev/cu.usbmodem1421');
+%DefaultMap
+prevSize = length(T);
+global sss
+sss = str;
+clear ppp;
+s = serial('COM5');
+s.BytesAvailableFcnCount = 5;
+s.BytesAvailableFcnMode = 'byte';
+s.BytesAvailableFcn = @works;
 fopen(s);
-while 1
-[x,y,d] = Joystick(s)
-[str, canContinue] = updatereality(str, str.cars{1}, [(y-0.5)/100+0.5, (x-0.5)/100+0.5]);
-clf
-displayCarControlMap(str, 1);
-if d || ~canContinue 
-    break;
-end
-pause(1)
-end
-
-fclose(s)

@@ -42,5 +42,8 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
     [~, car.sensorData, car.points] = SensorData(car, str);
     str.cars{car.id} = car;
     canContinue = 1-hascrashed(str,car);
-    
+    if canContinue
+        min = (sum(max(str.map).^2).^0.5)/(20*sum([car.length, car.width].^2).^0.5);
+        canContinue = 1-(abs(car.fx-car.x)<min && abs(car.fy-car.y)<min);
+    end
 end 

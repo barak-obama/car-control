@@ -72,7 +72,7 @@ global dt
 for i=1:numc
     for j=1:length(canContinue)
         if canContinue(j)
-            netans = net(getreality(str.cars{j}));
+            netans = net(getreality(str.cars{j})');
             [str, canContinue(j)] = updatereality(str,str.cars{j},netans(1),netans(2),dt,pi);
         end
     end

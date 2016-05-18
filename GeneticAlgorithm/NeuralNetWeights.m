@@ -22,8 +22,8 @@ for Generation=1:numGenerations
     %bestChromos.p(:,size(bestChromos.p,2)+1) = fitnessStr.p(:,1);
     %bestChromos.f(end+1) = fitnessStr.f(1);
     if ever.f<fitnessStr.f(1)
-       ever.f = fitnessStr(1);
-       ever.p = fitnessStr(:,1);
+       ever.f = fitnessStr.f(1);
+       ever.p = fitnessStr.p(:,1);
     end
     cont = 1;
     if fitnessStr.f(1)>150

@@ -10,27 +10,37 @@ end
 fAlg = @(a) fitnessalg(a, str, chromoIndex, numStepsSim, nets);
 cAlg = @(a, b) crossoveralg(a, b, chromoIndex);
 mAlg = @(a, j) mutationalg(a, j);
-bestChromos = struct;
-bestChromos.p = [];
-bestChromos.f = [];
+%bestChromos = struct;
+%bestChromos.p = [];
+%bestChromos.f = [];
+ever = struct;
+ever.f = 0;
+ever.p = [];
 for Generation=1:numGenerations
     Generation
     [pop, fitnessStr] = GenAlg(pop,fAlg,cAlg,mAlg,elitePercentage,mutationPercentage,crossoverPercentage);
-    bestChromos.p(end+1) = fitnessStr.p(1);
-    bestChromos.f(end+1) = fitnessStr.f(1);
-    cont = 0;
-    if length(bestChromos.f) > 3
-       bestChromos.f(1) = []; 
-       bestChromos.p(1) = [];
-    else
-        cont = 1;
+    %bestChromos.p(:,size(bestChromos.p,2)+1) = fitnessStr.p(:,1);
+    %bestChromos.f(end+1) = fitnessStr.f(1);
+    if ever.f<fitnessStr.f(1)
+       ever.f = fitnessStr.f(1);
+       ever.p = fitnessStr.p(:,1);
     end
-    for i=2:length(bestChromos.f)
-        if bestChromos.f(i-1) < bestChromos.f(i)
-           cont = 1;
-           break;
-        end
+    cont = 1;
+    if fitnessStr.f(1)>150
+       cont = 0; 
     end
+    %if length(bestChromos.f) > 3
+    %   bestChromos.f(1) = []; 
+    %   bestChromos.p(:,1) = [];
+    %elseif length(bestChromos.f) < 3
+    %    cont = 1;
+    %end
+    %for i=2:length(bestChromos.f)
+    %    if bestChromos.f(1) < bestChromos.f(i)
+    %       cont = 1;
+    %       break;
+    %    end
+    %end
     if ~cont
        break; 
     end
@@ -38,6 +48,14 @@ end
 fit = fitnessalg(pop, str, chromoIndex, numStepsSim, nets);
 [~, chromoIndex] = max(fit);
 best = pop(:, chromoIndex);
+if ~cont && fit(chromoIndex)<fitnessStr.f(1)
+   best = fitnessStr.p(:,1);
+elseif fit(chromoIndex)<ever.f
+    best = ever.p;
+end
+%if ~cont && fit(chromoIndex)<bestChromos.f(1)
+%   best = bestChromos.p(:,1);
+%end
 end
 
 function [ fit ] = fitnessalg( a, str, ind, numc, nets )
@@ -53,8 +71,10 @@ net = netFromChromo(a,ind,net);
 global dt
 for i=1:numc
     for j=1:length(canContinue)
-        netans = net(getreality(str.cars{j}));
-        [str, canContinue(j)] = updatereality(str,str.cars{j},netans(1),netans(2),dt,pi);
+        if canContinue(j)
+            netans = net(getreality(str.cars{j}));
+            [str, canContinue(j)] = updatereality(str,str.cars{j},netans(1),netans(2),dt,pi);
+        end
     end
 end
 for i=1:length(canContinue)

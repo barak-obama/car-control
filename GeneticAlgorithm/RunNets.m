@@ -1,12 +1,13 @@
 global dt
 dt = 0.1;
 DefaultMap;
-netSize = [10, 20];
+pause;
+netSize = [10,10];
 numStepsSim = 300;
-numGenerations = 100;
-chromoNum = 10;
-elitePerc = 0.3;
-crossPerc = 0.7;
+numGenerations = 20;
+chromoNum = 25;
+elitePerc = 0.6;
+crossPerc = 0.1;
 mutPerc = 0.01;
 inL = length(getreality(str.cars{1}));
 [chromoLength, chromoIndex] = GenerateChromo(inL,2,netSize);

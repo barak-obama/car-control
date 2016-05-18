@@ -12,6 +12,9 @@ for i=1:maxNum
             break;
         end
     end
+    if ~canContinue
+        break;
+    end
     pause(dt);
 end
 end

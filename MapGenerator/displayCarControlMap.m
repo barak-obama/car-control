@@ -1,7 +1,7 @@
-function displayCarControlMap( str, withsensors )
+function [ ppp ] = displayCarControlMap( str, withsensors )
 hold on;
 axis equal;
-plot(str.map(:,1),str.map(:,2));
+ppp = plot(str.map(:,1),str.map(:,2));
 for i=1:length(str.cars)
     if ~isempty(str.cars{i})
         xy = polygonFromCar(str.cars{i}, 0);

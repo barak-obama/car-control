@@ -2,10 +2,10 @@ global dt
 dt = 0.1;
 DefaultMap;
 pause;
-netSize = [10,20];
+netSize = [10,10];
 numStepsSim = 300;
-numGenerations = 100;
-chromoNum = 25;
+numGenerations = 200;
+chromoNum = 50;
 elitePerc = 0.6;
 crossPerc = 0.1;
 mutPerc = 0.01;

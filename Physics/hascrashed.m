@@ -1,5 +1,6 @@
 function [ b ] = hascrashed( str, car )
-if ~floor(mean(inpolygon(car.x, car.y, str.map(:,1), str.map(:,2))))
+polyCar = polygonFromCar(car,0);
+if ~floor(mean(inpolygon(polyCar(:,1), polyCar(:,2), str.map(:,1), str.map(:,2))))
     b = 1;
     return;
 end

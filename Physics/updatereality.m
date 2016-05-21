@@ -1,4 +1,4 @@
-function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max_wheel_angle  )
+function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max_wheel_angle, varargin  )
     car.a = a;
     car.v = a * dt + car.v;
     wheel_angle = wheel_angle * max_wheel_angle;
@@ -29,6 +29,7 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
         else
             display('should jump');
         end
+        car.angle = roundArg(car.angle);
         car.x = (car.length / 2) * cos(pi/2 - car.angle) + new_end(1);
         car.y = (car.length / 2) * sin(pi/2 - car.angle) + new_end(2);
     else

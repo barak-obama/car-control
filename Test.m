@@ -19,6 +19,7 @@ dt = 0.01;
 canContinue = 1;
 
 while canContinue
+    hold on;
     [ str, canContinue ] = updatereality( str, str.cars{1}, 0, 1, dt, -pi/5  );
     hold off
     displayCarControlMap(str, 0);

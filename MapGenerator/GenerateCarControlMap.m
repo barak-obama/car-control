@@ -15,6 +15,7 @@ for i=1:max(size(cars))
     cars{1,i} = GenerateCarControlCar(length,width,cars,map);
 end
 for i=1:max(size(obstacles))
+    i
     obstacles{1,i} = GenerateCarControlObstacle(obstacles,map,cars);
 end
 str.map = map;

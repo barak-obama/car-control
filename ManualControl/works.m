@@ -8,6 +8,7 @@ T = [T,[y;x]];
 [sss, canContinue] = updatereality(sss, sss.cars{1}, y, x, 0.1, pi);
 clf
 displayCarControlMap(sss, 0);
+ylim([sss.cars{1}.y-10, sss.cars{1}.y+40]);
 if d || ~canContinue 
     fclose(obj);
     if hascrashed(sss,sss.cars{1})||d

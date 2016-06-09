@@ -27,13 +27,12 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
              if b(1) < new_end(1)
                  angle = angle + pi;
              end
-             angle = angle + pi/2;
         else
              if new_end(1) < b(1)
              	angle = angle + pi;
              end
-            angle = angle + pi/2;
         end
+        angle = angle + pi/2;
         angle = roundArg(angle);
         car.angle = pi/2 - angle;
         

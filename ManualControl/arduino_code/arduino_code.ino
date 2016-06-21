@@ -16,6 +16,6 @@ void loop() {
   Serial.print(value2);
   Serial.print(",");
   Serial.println(digitalRead(digital));
-  delay(1000);
+  delay(50);
 
 }

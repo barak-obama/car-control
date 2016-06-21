@@ -20,7 +20,7 @@ function [ collision , point] = getDistance( angle, car, str, dot)
             end
         end 
     end
-    str.map = [str.map;flip(str.map(1:(end-1),:))];
+%     str.map = [str.map;flip(str.map(1:(end-1),:))];
     [d, p] = collide(str.map, dot, angle, l);
     if d < collision
         collision = d;

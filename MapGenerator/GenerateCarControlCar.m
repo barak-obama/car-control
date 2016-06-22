@@ -19,6 +19,8 @@ while ~inMapNotInCars(map, cars, x, y)
     x = rand*mapMaxX+mapMinX;
     y = rand*mapMaxY+mapMinY;
 end
+str.fx = x;
+str.fy = y;
 str.v = 0;
 str.a = 0;
 end

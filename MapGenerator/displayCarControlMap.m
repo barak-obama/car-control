@@ -6,6 +6,11 @@ for i=1:length(str.cars)
     if ~isempty(str.cars{i})
         xy = polygonFromCar(str.cars{i}, 0);
         fill(xy(:,1),xy(:,2),'g');
+        fx = str.cars{i}.fx;
+        fy = str.cars{i}.fy;
+        inc = max([str.cars{i}.length,str.cars{i}.width])/10;
+        fill([fx-inc;fx-inc;fx+inc;fx+inc;fx-inc],...
+            [fy-inc;fy+inc;fy+inc;fy-inc;fy-inc],'b');
         if withsensors
             for k=1:size(str.cars{i}.points, 2)
                 plot(str.cars{i}.points(1,k), ...

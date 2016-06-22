@@ -11,9 +11,11 @@ void setup() {
 void loop() {
   int value1 = analogRead(joyPin1);
   int value2 = analogRead(joyPin2);
-  Serial.print(value1);
+  double x = (((double)value1) - 503) / 520;
+  double y = (((double)value2) - 510) / 515;
+  Serial.print(x/3);
   Serial.print(",");
-  Serial.print(value2);
+  Serial.print(y/3);
   Serial.print(",");
   Serial.println(digitalRead(digital));
   delay(50);

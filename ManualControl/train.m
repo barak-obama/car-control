@@ -1,8 +1,8 @@
 close all
 %DefaultMap
-global sss prevSize
+global prevSize
+strC = str;
 prevSize = length(T);
-sss = str;
 clear ppp;
 s = serial('COM6');
 %s.BytesAvailableFcnCount = 5;
@@ -13,25 +13,24 @@ Joystick(s);
 while 1
 [x, y, d] = Joystick(s);
 display([x, y, d])
-X = [X,getreality(sss.cars{1})'];
+if isnan(x)
+    x=0;
+end
+X = [X,getreality(strC.cars{1})'];
 T = [T,[y;x]];
-[sss, canContinue] = updatereality(sss, sss.cars{1}, y, x, 0.1, 4*pi/10);
-tic;
+[strC, canContinue] = updatereality(strC, strC.cars{1}, y, x, 0.05, 4*pi/10);
 clf
-displayCarControlMap(sss, 1);
+displayCarControlMap(strC, 1);
 drawnow;
-display(toc);
 if d || ~canContinue 
     fclose(s);
-    if hascrashed(sss,sss.cars{1})||d
+    if hascrashed(strC,strC.cars{1})||d
         X = X(:,1:prevSize);
         T = T(:,1:prevSize);
+    else
+        D{end+1} = str;
     end
     break;
 end 
 flushinput(s);
 end
-
-clf
-displayCarControlMap(sss, 1);
-drawnow;

@@ -1,4 +1,5 @@
 function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max_wheel_angle, varargin  )
+    display([a, wheel_angle, dt, max_wheel_angle])
     car.a = a;
     car.v = a * dt + car.v;
     wheel_angle = wheel_angle * max_wheel_angle;
@@ -16,10 +17,10 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
         end
         
 
-        plot(b(1), b(2), 'ob');
+%         plot(b(1), b(2), 'ob');
         hold on;
         
-        theta = car.v * dt / r;
+        theta = (car.v / r) * dt;
         new_end = rotateBy(back, theta, b);
         
         angle = atan((new_end(2) - b(2))/(new_end(1) - b(1)));
@@ -40,8 +41,8 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
         car.x = (car.length / 2) * cos(pi/2 - car.angle) + new_end(1);
         car.y = (car.length / 2) * sin(pi/2 - car.angle) + new_end(2);
     else
-        car.x = car.x + car.v * cos(pi/2 - car.angle);
-        car.y = car.y + car.v * sin(pi/2 - car.angle);
+        car.x = car.x + car.v * dt * cos(pi/2 - car.angle);
+        car.y = car.y + car.v * dt * sin(pi/2 - car.angle);
     end
     [~, car.sensorData, car.points] = SensorData(car, str);
     str.cars{car.id} = car;

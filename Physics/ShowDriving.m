@@ -1,6 +1,5 @@
-function ShowDriving( str, net, maxNum )
+function ShowDriving( str, net, maxNum, dt )
 figure;
-global dt
 displayCarControlMap(str,1);
 for i=1:maxNum
     for j=1:max(size(str.cars))

@@ -1,5 +1,5 @@
 function [ reality ] = getreality( car )
-reality = [car.v, car.a, car.angle];
+reality = [car.v, car.a, car.angle, car.fx - car.x, car.fy - car.y];
 for i = 1:size(car.sensorData, 2)
    for j = 1:size(car.sensorData, 1)
        reality(end+1) = sqrt(abs(car.sensorData(j, i, 1) - ...

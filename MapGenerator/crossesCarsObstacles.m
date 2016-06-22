@@ -5,6 +5,16 @@ for i=1:length(cars)
     if c
         return;
     end
+    
+    inc = max([cars{1,i}.length,cars{1,i}.width])/10;
+    fx = cars{1,i}.fx;
+    fy = cars{1,i}.fy;
+    c = ~isempty(seg2poly(s,[[fx-inc,fx-inc,fx+inc,fx+inc,fx-inc];...
+        [fy-inc,fy+inc,fy+inc,fy-inc,fy-inc]]));
+    if c
+        return;
+    end
+    
 end
 for i=1:length(obstacles)
     if ~isempty(obstacles{1,i})

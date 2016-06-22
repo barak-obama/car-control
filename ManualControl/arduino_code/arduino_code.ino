@@ -9,15 +9,13 @@ void setup() {
 }
 
 void loop() {
-  int value1 = analogRead(joyPin1);
-  int value2 = analogRead(joyPin2);
-  double x = (((double)value1) - 503) / 520;
-  double y = (((double)value2) - 510) / 515;
-  Serial.print(x/3);
-  Serial.print(",");
-  Serial.print(y/3);
-  Serial.print(",");
-  Serial.println(digitalRead(digital));
+  int x = analogRead(joyPin1);
+  int y = analogRead(joyPin2);
+  Serial.println(String(x) + "," + String(y) + ","+String(digitalRead(digital), BIN));
+//  Serial.print(",");
+//  Serial.print(y);
+//  Serial.print(",");
+//  Serial.println(digitalRead(digital));
   delay(50);
 
 }

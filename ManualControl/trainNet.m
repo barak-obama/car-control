@@ -4,7 +4,7 @@ global prevSize
 strC = str;
 prevSize = length(T);
 clear ppp;
-s = serial('/dev/cu.usbmodem1411');
+s = serial('COM5');
 %s.BytesAvailableFcnCount = 5;
 %s.BytesAvailableFcnMode = 'byte';
 %s.BytesAvailableFcn = @works;

@@ -12,10 +12,6 @@ void loop() {
   int x = analogRead(joyPin1);
   int y = analogRead(joyPin2);
   Serial.println(String(x) + "," + String(y) + ","+String(digitalRead(digital), BIN));
-//  Serial.print(",");
-//  Serial.print(y);
-//  Serial.print(",");
-//  Serial.println(digitalRead(digital));
   delay(50);
 
 }

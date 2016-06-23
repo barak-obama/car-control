@@ -1,5 +1,5 @@
 function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max_wheel_angle, varargin  )
-    display([a, wheel_angle, dt, max_wheel_angle])
+    display([a,wheel_angle]);
     car.a = a;
     car.v = a * dt + car.v;
     wheel_angle = wheel_angle * max_wheel_angle;

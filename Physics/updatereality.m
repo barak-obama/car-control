@@ -1,5 +1,5 @@
-function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max_wheel_angle, varargin  )
-    display([a,wheel_angle]);
+function [ str, canContinue, crash] = updatereality( str, car, a, wheel_angle, dt, max_wheel_angle, varargin  )
+    %display([a,wheel_angle]);
     car.a = a;
     car.v = a * dt + car.v;
     wheel_angle = wheel_angle * max_wheel_angle;
@@ -47,6 +47,7 @@ function [ str, canContinue ] = updatereality( str, car, a, wheel_angle, dt, max
     [~, car.sensorData, car.points] = SensorData(car, str);
     str.cars{car.id} = car;
     canContinue = 1-hascrashed(str,car);
+    crash = hascrashed(str,car);
     if canContinue
         min = (sum(max(str.map).^2).^0.5)/(20*sum([car.length, car.width].^2).^0.5);
         canContinue = 1-(abs(car.fx-car.x)<min && abs(car.fy-car.y)<min);
